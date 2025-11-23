@@ -1,7 +1,15 @@
-from flask import Flask, request, jsonify, render_template
-from openai import OpenAI
+from pathlib import Path
 from dotenv import load_dotenv
 import os
+from flask import Flask, request, jsonify
+from openai import OpenAI
+
+# Load root .env
+ROOT_ENV = Path(__file__).resolve().parents[1] / ".env"
+load_dotenv(ROOT_ENV, override=True)
+
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
+client = OpenAI(api_key=OPENAI_API_KEY)
 
 # Load environment variables from .env for local dev
 load_dotenv(override=True)
