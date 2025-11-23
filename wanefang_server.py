@@ -3,7 +3,7 @@ from openai import OpenAI
 from dotenv import load_dotenv
 import os
 
-# Load environment variables from .env (including OPENAI_API_KEY)
+# Load environment variables from .env for local dev
 load_dotenv(override=True)
 
 app = Flask(__name__, static_folder="static", template_folder="templates")
@@ -24,7 +24,7 @@ def index():
 
 @app.route("/chat", methods=["POST"])
 def chat():
-    data = request.get_json(force=True)
+    data = request.get_json(force=True) or {}
     user_message = data.get("message", "").strip()
 
     if not user_message:
@@ -44,6 +44,5 @@ def chat():
 
 
 if __name__ == "__main__":
-    # Local dev server
     app.run(host="0.0.0.0", port=8501, debug=True)
 
