@@ -53,7 +53,6 @@ def index():
     """Serve the main HTML page with the dragon and chat box."""
     return render_template("index.html")
 
-
 @app.route("/chat", methods=["POST"])
 def chat():
     """Accept JSON {message: "..."} and return {reply: "..."}."""
@@ -78,12 +77,10 @@ def chat():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-
 @app.route("/health", methods=["GET"])
 def health():
     """Basic health check for Render and debugging."""
     return jsonify({"status": "ok"})
-
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8501, debug=True)

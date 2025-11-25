@@ -1,159 +1,78 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Wanefang the Dragon</title>
-  <style>
-    body {
-      background: #05050a;
-      color: #f2f2ff;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
-    }
-    header {
-      padding: 16px 24px;
-      border-bottom: 1px solid #333;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-    header img {
-      width: 56px;
-      height: 56px;
-      border-radius: 12px;
-      object-fit: cover;
-    }
-    header h1 {
-      font-size: 1.4rem;
-      margin: 0;
-    }
-    header small {
-      opacity: 0.8;
-    }
-    #chat {
-      flex: 1;
-      padding: 16px 24px;
-      overflow-y: auto;
-    }
-    .message {
-      margin-bottom: 12px;
-      max-width: 70ch;
-    }
-    .message.user {
-      text-align: right;
-    }
-    .bubble {
-      display: inline-block;
-      padding: 8px 12px;
-      border-radius: 12px;
-      background: #222;
-      white-space: pre-wrap;
-    }
-    .user .bubble {
-      background: #2c6bed;
-    }
-    .dragon .bubble {
-      background: #36163f;
-    }
-    footer {
-      padding: 12px 16px;
-      border-top: 1px solid #333;
-      display: flex;
-      gap: 8px;
-    }
-    input[type="text"] {
-      flex: 1;
-      padding: 8px 10px;
-      border-radius: 8px;
-      border: 1px solid #555;
-      background: #111;
-      color: #f2f2ff;
-    }
-    button {
-      padding: 8px 14px;
-      border-radius: 8px;
-      border: none;
-      background: #2c6bed;
-      color: white;
-      cursor: pointer;
-    }
-    button:disabled {
-      opacity: 0.6;
-      cursor: default;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <title>Wanefang’s Wisdom</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Main stylesheet -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/wanefang.css') }}">
+
+  <!-- Optional favicon (if you want to add one later)
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/wanefang-dragon.png') }}">
+  -->
 </head>
 <body>
-  <header>
-    <img src="/static/dragon.png" alt="Wanefang Dragon">
-    <div>
-      <h1>Wanefang, the Library Dragon</h1>
-      <small>Welcome to The Behr Cave. Ask your question.</small>
-    </div>
-  </header>
 
-  <div id="chat"></div>
+  <div class="page">
+    <main class="shell">
+      <header class="wf-header">
+        <div class="wf-title-block">
+          <h1>Wanefang’s Wisdom</h1>
+          <p>Ask the dragon of The Behr Cave for guidance.</p>
+        </div>
 
-  <footer>
-    <input id="input" type="text" placeholder="Ask Wanefang something..." autocomplete="off">
-    <button id="send">Send</button>
-  </footer>
+        <div class="wf-status-pill">
+          <span class="wf-status-dot"></span>
+          Live · Connected
+        </div>
+      </header>
 
-  <script>
-    const chatEl = document.getElementById("chat");
-    const inputEl = document.getElementById("input");
-    const sendBtn = document.getElementById("send");
+      <section class="wf-card">
+        <div class="wf-top-row">
+          <div class="wf-dragon-portrait">
+            <!-- Optional background image is handled in CSS. -->
+            <div class="wf-dragon-orbit"></div>
+          </div>
+          <div class="wf-intro-copy">
+            <h2>Greetings, traveler.</h2>
+            <p>
+              I am Wanefang, shimmering through circuits and starlight.
+              Whisper your question, and I shall answer from the cosmic stacks.
+            </p>
+          </div>
+        </div>
 
-    function addMessage(role, text) {
-      const wrapper = document.createElement("div");
-      wrapper.className = "message " + (role === "user" ? "user" : "dragon");
-      const bubble = document.createElement("div");
-      bubble.className = "bubble";
-      bubble.textContent = text;
-      wrapper.appendChild(bubble);
-      chatEl.appendChild(wrapper);
-      chatEl.scrollTop = chatEl.scrollHeight;
-    }
+        <div id="chat" class="wf-chat-window">
+          <div class="wf-message wf-message-wanefang">
+            The ancient dragon awakens in shimmering starlight.
+            What truth shall I reveal today?
+          </div>
+        </div>
 
-    async function sendMessage() {
-      const text = inputEl.value.trim();
-      if (!text) return;
-      inputEl.value = "";
-      addMessage("user", text);
-      sendBtn.disabled = true;
+        <div class="wf-input-row">
+          <textarea
+            id="prompt"
+            class="wf-input"
+            placeholder="Speak into the cosmic void…"
+          ></textarea>
 
-      try {
-        const resp = await fetch("/chat", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message: text })
-        });
-        const data = await resp.json();
-        if (data.reply) {
-          addMessage("dragon", data.reply);
-        } else {
-          addMessage("dragon", "Hmm… something went wrong in my cave.");
-        }
-      } catch (e) {
-        addMessage("dragon", "I could not reach my spellbook server.");
-      } finally {
-        sendBtn.disabled = false;
-        inputEl.focus();
-      }
-    }
+          <button id="send" class="wf-button">
+            Send
+          </button>
 
-    sendBtn.addEventListener("click", sendMessage);
-    inputEl.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") sendMessage();
-    });
+          <div class="wf-hint-row">
+            <span class="wf-hint">
+              Press ⌘+Enter (Mac) / Ctrl+Enter (Windows) to send.
+            </span>
+            <span id="status" class="wf-status-text"></span>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
 
-    // Greeting
-    addMessage("dragon", "Welcome to Wanefang at The Behr Cave. What knowledge do you seek?");
-    inputEl.focus();
-  </script>
+  <!-- Chat logic -->
+  <script src="{{ url_for('static', filename='js/wanefang.js') }}"></script>
 </body>
 </html>
-
