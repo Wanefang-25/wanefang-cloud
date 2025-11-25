@@ -125,16 +125,6 @@ body {
 }
 
 
-.wf-dragon-orbit {
-  width: 68%;
-  height: 68%;
-  border-radius: 999px;
-  border: 1px dashed rgba(148, 163, 184, 0.8);
-  box-shadow:
-    0 0 18px rgba(56, 189, 248, 0.65),
-    0 0 36px rgba(79, 70, 229, 0.75);
-}
-
 .wf-intro-copy h2 {
   margin: 0 0 4px;
   font-size: 1.1rem;
