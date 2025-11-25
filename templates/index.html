@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Wanefang’s Wisdom</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/wanefang.css') }}">
+</head>
+<body>
+
+  <div class="page">
+    <main class="shell">
+      <header class="wf-header">
+        <div class="wf-title-block">
+          <h1>Wanefang’s Wisdom</h1>
+          <p>Ask the dragon of The Behr Cave for guidance.</p>
+        </div>
+
+        <div class="wf-status-pill">
+          <span class="wf-status-dot"></span>
+          Live · Connected
+        </div>
+      </header>
+
+      <section class="wf-card">
+
+        <div class="wf-top-row">
+          <div class="wf-dragon-portrait">
+            <!-- IMAGE ONLY — orbit removed -->
+          </div>
+
+          <div class="wf-intro-copy">
+            <h2>Greetings, traveler.</h2>
+            <p>
+              I am Wanefang, shimmering through circuits and starlight.
+              Whisper your question, and I shall answer from the cosmic stacks.
+            </p>
+          </div>
+        </div>
+
+        <div id="chat" class="wf-chat-window">
+          <div class="wf-message wf-message-wanefang">
+            The ancient dragon awakens in shimmering starlight.
+            What truth shall I reveal today?
+          </div>
+        </div>
+
+        <div class="wf-input-row">
+          <textarea
+            id="prompt"
+            class="wf-input"
+            placeholder="Speak into the cosmic void…"
+          ></textarea>
+
+          <button id="send" class="wf-button">
+            Send
+          </button>
+
+          <div class="wf-hint-row">
+            <span class="wf-hint">
+              Press ⌘+Enter (Mac) / Ctrl+Enter (Windows) to send.
+            </span>
+            <span id="status" class="wf-status-text"></span>
+          </div>
+        </div>
+
+      </section>
+    </main>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/wanefang.js') }}"></script>
+</body>
+</html>
