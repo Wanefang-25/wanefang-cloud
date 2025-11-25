@@ -117,16 +117,13 @@ body {
   border-radius: 999px;
   overflow: hidden;
   border: 1px solid rgba(148, 163, 184, 0.5);
-  background: radial-gradient(circle at 30% 0%, #38bdf8 0, #020617 40%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
-  /* Optional: if you add a real image file: */
-  /* background-image: url("../img/wanefang-dragon.png");
-     background-size: cover;
-     background-position: center; */
+  /* Use your real dragon image */
+  background-image: url("../img/dragon.png");
+  background-size: cover;
+  background-position: center;
 }
+
 
 .wf-dragon-orbit {
   width: 68%;
